@@ -1,30 +1,34 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
 import {
   productListReducer,
   productDetailsReducer,
-} from "./reducer/productReducers";
-import { cartReducer } from "./reducer/cartReducer";
+} from './reducer/productReducers';
+import { cartReducer } from './reducer/cartReducer';
 import {
+  userDeleteReducer,
   userDetailsReducer,
+  userListReducer,
   userLoginReducer,
   userRegisterReducer,
   userUpdateReducer,
-} from "./reducer/userReducer";
+} from './reducer/userReducer';
 import {
+  myOrdersList,
   orderCreateReducer,
   orderDetailsReducer,
-} from "./reducer/orderReducers";
+  orderPayReducer,
+} from './reducer/orderReducers';
 
-const localStorageCartItems = localStorage.getItem("cartItems")
-  ? JSON.parse(localStorage.getItem("cartItems"))
+const localStorageCartItems = localStorage.getItem('cartItems')
+  ? JSON.parse(localStorage.getItem('cartItems'))
   : [];
 
-const localStorageShippingAddress = localStorage.getItem("shippingAddress")
-  ? JSON.parse(localStorage.getItem("shippingAddress"))
+const localStorageShippingAddress = localStorage.getItem('shippingAddress')
+  ? JSON.parse(localStorage.getItem('shippingAddress'))
   : {};
 
-const localStorageUserInfo = localStorage.getItem("userInfo")
-  ? JSON.parse(localStorage.getItem("userInfo"))
+const localStorageUserInfo = localStorage.getItem('userInfo')
+  ? JSON.parse(localStorage.getItem('userInfo'))
   : null;
 
 const preloadedState = {
@@ -46,8 +50,12 @@ const store = configureStore({
     userRegister: userRegisterReducer,
     userDetails: userDetailsReducer,
     userUpdate: userUpdateReducer,
+    userList: userListReducer,
+    userDelete: userDeleteReducer,
     orderCreate: orderCreateReducer,
     orderDetails: orderDetailsReducer,
+    orderPay: orderPayReducer,
+    myOrdersList: myOrdersList,
   },
   preloadedState,
 });
