@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getProductDetails } from "../actions/productActions";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProductDetails } from '../actions/productActions';
 import {
   ListGroup,
   ListGroupItem,
@@ -10,11 +10,11 @@ import {
   Card,
   Button,
   FormControl,
-} from "react-bootstrap";
-import { Link, useParams, useNavigate } from "react-router-dom";
-import Rating from "../components/Rating";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
+} from 'react-bootstrap';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import Rating from '../components/Rating';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
 
 const ProductScreen = () => {
   const [qty, setQty] = useState(1);
@@ -36,7 +36,7 @@ const ProductScreen = () => {
     product;
   return (
     <>
-      <Link to="/" className="btn btn-light">
+      <Link to='/' className='btn btn-light'>
         Go Back
       </Link>
       {loading ? (
@@ -46,16 +46,16 @@ const ProductScreen = () => {
       ) : (
         <Row>
           <Col md={6}>
-            <Image src={image} alt={name} fluid />
+            <Image src={image} alt={name} fluid height='510px' width='640px' />
           </Col>
           <Col md={3}>
-            <ListGroup variant="flush">
+            <ListGroup variant='flush'>
               <ListGroupItem>
                 <h3>{name}</h3>
               </ListGroupItem>
               <ListGroupItem>
-                {" "}
-                <Rating value={rating} text={`${numReviews} reviews`} />{" "}
+                {' '}
+                <Rating value={rating} text={`${numReviews} reviews`} />{' '}
               </ListGroupItem>
               <ListGroupItem>Price : ${price}</ListGroupItem>
               <ListGroupItem>Description : {description}</ListGroupItem>
@@ -64,7 +64,7 @@ const ProductScreen = () => {
 
           <Col md={3}>
             <Card>
-              <ListGroup variant="flush">
+              <ListGroup variant='flush'>
                 <ListGroupItem>
                   <Row>
                     <Col>Price:</Col>
@@ -76,7 +76,7 @@ const ProductScreen = () => {
                 <ListGroupItem>
                   <Row>
                     <Col>Status:</Col>
-                    <Col>{countInStock ? "In Stock" : "Out of Stock"}</Col>
+                    <Col>{countInStock ? 'In Stock' : 'Out of Stock'}</Col>
                   </Row>
                 </ListGroupItem>
                 {countInStock > 0 && (
@@ -85,7 +85,7 @@ const ProductScreen = () => {
                       <Col>Qty</Col>
                       <Col>
                         <FormControl
-                          as="select"
+                          as='select'
                           value={qty}
                           onChange={(e) => setQty(e.target.value)}
                         >
@@ -103,8 +103,8 @@ const ProductScreen = () => {
                 <ListGroupItem>
                   <Button
                     onClick={addToCartHandler}
-                    className="btn-block"
-                    type="button"
+                    className='btn-block'
+                    type='button'
                     disabled={countInStock === 0}
                   >
                     Add to cart

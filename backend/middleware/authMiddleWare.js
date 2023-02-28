@@ -28,7 +28,7 @@ export const protectRoute = asyncHandler(async (req, res, next) => {
   }
 });
 
-export const isAdmin = (req, res, next) => {
+export const checkAdmin = (req, res, next) => {
   if (req.user && req.user.isAdmin) {
     next();
   } else {

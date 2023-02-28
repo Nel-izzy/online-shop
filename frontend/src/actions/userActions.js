@@ -10,6 +10,7 @@ import {
   USER_DETAILS_SUCCESS,
   USER_LIST_FAIL,
   USER_LIST_REQUEST,
+  USER_LIST_RESET,
   USER_LIST_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
@@ -18,6 +19,10 @@ import {
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
+  USER_UPDATE_ADMIN_FAIL,
+  USER_UPDATE_ADMIN_REQUEST,
+  USER_UPDATE_ADMIN_RESET,
+  USER_UPDATE_ADMIN_SUCCESS,
   USER_UPDATE_FAIL,
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
@@ -97,7 +102,7 @@ export const register = (name, email, password) => async (dispatch) => {
   }
 };
 
-export const getUserProfile = (id) => async (dispatch, getState) => {
+export const getUserDetails = (id) => async (dispatch, getState) => {
   try {
     dispatch({
       type: USER_DETAILS_REQUEST,
@@ -113,7 +118,7 @@ export const getUserProfile = (id) => async (dispatch, getState) => {
       },
     };
 
-    const res = await axios.get('/api/users/profile', config);
+    const res = await axios.get(`/api/users/${id}`, config);
 
     dispatch({
       type: USER_DETAILS_SUCCESS,
@@ -166,6 +171,52 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
   }
 };
 
+export const updateUser = (user) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_UPDATE_ADMIN_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const res = await axios.put(`/api/users/${user._id}`, user, config);
+
+    dispatch({
+      type: USER_UPDATE_ADMIN_SUCCESS,
+    });
+
+    dispatch({
+      type: USER_DETAILS_SUCCESS,
+      payload: res.data,
+    });
+
+    dispatch({ type: USER_DETAILS_RESET });
+  } catch (error) {
+    dispatch({
+      type: USER_UPDATE_ADMIN_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const resetUser = () => (dispatch) => {
+  dispatch({
+    type: USER_UPDATE_ADMIN_RESET,
+  });
+};
+
 export const logout = () => (dispatch) => {
   dispatch({
     type: USER_LOGOUT,
@@ -176,6 +227,8 @@ export const logout = () => (dispatch) => {
   dispatch({
     type: MY_ORDER_DETAILS_RESET,
   });
+
+  dispatch({ type: USER_LIST_RESET });
   localStorage.removeItem('userInfo');
 };
 

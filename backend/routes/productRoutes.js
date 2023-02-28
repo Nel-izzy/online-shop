@@ -1,9 +1,22 @@
-import express from "express";
+import express from 'express';
 const router = express.Router();
-import { getProducts, getProductById } from "../controllers/productController.js";
+import {
+  getProducts,
+  getProductById,
+  deleteProduct,
+  createProduct,
+  updateProduct,
+} from '../controllers/productController.js';
+import { checkAdmin, protectRoute } from '../middleware/authMiddleWare.js';
 
-router.route('/').get(getProducts);
-router.route('/:id').get(getProductById);
-
+router
+  .route('/')
+  .get(getProducts)
+  .post(protectRoute, checkAdmin, createProduct);
+router
+  .route('/:id')
+  .get(getProductById)
+  .delete(protectRoute, checkAdmin, deleteProduct)
+  .put(protectRoute, checkAdmin, updateProduct);
 
 export default router;

@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import { getUserProfile, updateUserProfile } from '../actions/userActions';
+import { getUserDetails, updateUserProfile } from '../actions/userActions';
 import { getMyOrders } from '../actions/orderActions';
 
 const ProfileScreen = () => {
@@ -54,7 +54,7 @@ const ProfileScreen = () => {
       navigate('/login');
     } else {
       if (!user.name) {
-        dispatch(getUserProfile('profile'));
+        dispatch(getUserDetails('profile'));
         dispatch(getMyOrders());
       } else {
         setName(user.name);

@@ -3,19 +3,25 @@ const router = express.Router();
 import {
   authUser,
   deleteUser,
+  getUserById,
   getUserProfile,
   getUsers,
   registerUser,
+  updateUser,
   updateUserProfile,
 } from '../controllers/userController.js';
-import { protectRoute, isAdmin } from '../middleware/authMiddleWare.js';
+import { protectRoute, checkAdmin } from '../middleware/authMiddleWare.js';
 
-router.route('/').post(registerUser).get(protectRoute, isAdmin, getUsers);
-router.route('/:id').delete(protectRoute, isAdmin, deleteUser);
+router.route('/').post(registerUser).get(protectRoute, checkAdmin, getUsers);
 router.post('/login', authUser);
 router
   .route('/profile')
   .get(protectRoute, getUserProfile)
   .put(protectRoute, updateUserProfile);
+router
+  .route('/:id')
+  .delete(protectRoute, checkAdmin, deleteUser)
+  .get(protectRoute, checkAdmin, getUserById)
+  .put(protectRoute, checkAdmin, updateUser);
 
 export default router;
