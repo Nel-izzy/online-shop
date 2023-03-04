@@ -5,6 +5,7 @@ import {
   productDeleteReducer,
   productCreateReducer,
   productUpdateReducer,
+  productReviewCreateReducer,
 } from './reducer/productReducers';
 import { cartReducer } from './reducer/cartReducer';
 import {
@@ -19,7 +20,9 @@ import {
 import {
   myOrdersList,
   orderCreateReducer,
+  orderDeliverReducer,
   orderDetailsReducer,
+  orderListReducer,
   orderPayReducer,
 } from './reducer/orderReducers';
 
@@ -52,6 +55,7 @@ const store = configureStore({
     productDelete: productDeleteReducer,
     productCreate: productCreateReducer,
     productUpdate: productUpdateReducer,
+    productReviewCreate: productReviewCreateReducer,
     cart: cartReducer,
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
@@ -64,6 +68,8 @@ const store = configureStore({
     orderDetails: orderDetailsReducer,
     orderPay: orderPayReducer,
     myOrdersList: myOrdersList,
+    ordersList: orderListReducer,
+    orderDeliver: orderDeliverReducer,
   },
   preloadedState,
 });
