@@ -17,29 +17,44 @@ import {
   PRODUCT_LIST_FAIL,
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
+  PRODUCT_TOP_FAIL,
+  PRODUCT_TOP_REQUEST,
+  PRODUCT_TOP_SUCCESS,
   PRODUCT_UPDATE_FAIL,
   PRODUCT_UPDATE_REQUEST,
   PRODUCT_UPDATE_RESET,
   PRODUCT_UPDATE_SUCCESS,
-} from "../types/productTypes";
+} from '../types/productTypes';
 
 export const productListReducer = (state = { products: [] }, action) => {
   switch (action.type) {
     case PRODUCT_LIST_REQUEST:
-      return {
-        loading: true,
-        products: [],
-      };
+      return { loading: true, products: [] };
     case PRODUCT_LIST_SUCCESS:
+      return {
+        loading: false,
+        products: action.payload.products,
+        pages: action.payload.pages,
+        page: action.payload.page,
+      };
+    case PRODUCT_LIST_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const productTopRatedReducer = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case PRODUCT_TOP_REQUEST:
+      return { loading: true, products: [] };
+    case PRODUCT_TOP_SUCCESS:
       return {
         loading: false,
         products: action.payload,
       };
-    case PRODUCT_LIST_FAIL:
-      return {
-        loading: false,
-        error: action.payload,
-      };
+    case PRODUCT_TOP_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }

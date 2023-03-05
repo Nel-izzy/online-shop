@@ -23,6 +23,7 @@ import {
   USER_UPDATE_ADMIN_SUCCESS,
   USER_UPDATE_FAIL,
   USER_UPDATE_REQUEST,
+  USER_UPDATE_RESET,
   USER_UPDATE_SUCCESS,
 } from '../types/userTypes';
 
@@ -165,6 +166,8 @@ export const userUpdateReducer = (state = {}, action) => {
         loading: false,
         error: action.payload,
       };
+    case USER_UPDATE_RESET:
+      return {};
 
     default:
       return state;

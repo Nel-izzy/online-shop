@@ -25,6 +25,7 @@ import {
   USER_UPDATE_ADMIN_SUCCESS,
   USER_UPDATE_FAIL,
   USER_UPDATE_REQUEST,
+  USER_UPDATE_RESET,
   USER_UPDATE_SUCCESS,
 } from '../types/userTypes';
 
@@ -159,6 +160,8 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
       payload: res.data,
     });
 
+    dispatch({ type: USER_LOGIN_SUCCESS, payload: res.data });
+
     localStorage.setItem('userInfo', JSON.stringify(res.data));
   } catch (error) {
     dispatch({
@@ -230,6 +233,9 @@ export const logout = () => (dispatch) => {
 
   dispatch({ type: USER_LIST_RESET });
   localStorage.removeItem('userInfo');
+  localStorage.removeItem('cartItems');
+  localStorage.removeItem('shippingAddress');
+  localStorage.removeItem('paymentMethod');
 };
 
 export const listUsers = () => async (dispatch, getState) => {
@@ -299,4 +305,8 @@ export const deleteUser = (id) => async (dispatch, getState) => {
       payload: message,
     });
   }
+};
+
+export const userUpdateReset = () => (dispatch) => {
+  dispatch({ type: USER_UPDATE_RESET });
 };

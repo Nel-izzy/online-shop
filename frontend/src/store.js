@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore } from "@reduxjs/toolkit";
 import {
   productListReducer,
   productDetailsReducer,
@@ -6,8 +6,9 @@ import {
   productCreateReducer,
   productUpdateReducer,
   productReviewCreateReducer,
-} from './reducer/productReducers';
-import { cartReducer } from './reducer/cartReducer';
+  productTopRatedReducer,
+} from "./reducer/productReducers";
+import { cartReducer } from "./reducer/cartReducer";
 import {
   userDeleteReducer,
   userDetailsReducer,
@@ -16,7 +17,7 @@ import {
   userRegisterReducer,
   userUpdateAdminReducer,
   userUpdateReducer,
-} from './reducer/userReducer';
+} from "./reducer/userReducer";
 import {
   myOrdersList,
   orderCreateReducer,
@@ -24,18 +25,18 @@ import {
   orderDetailsReducer,
   orderListReducer,
   orderPayReducer,
-} from './reducer/orderReducers';
+} from "./reducer/orderReducers";
 
-const localStorageCartItems = localStorage.getItem('cartItems')
-  ? JSON.parse(localStorage.getItem('cartItems'))
+const localStorageCartItems = localStorage.getItem("cartItems")
+  ? JSON.parse(localStorage.getItem("cartItems"))
   : [];
 
-const localStorageShippingAddress = localStorage.getItem('shippingAddress')
-  ? JSON.parse(localStorage.getItem('shippingAddress'))
+const localStorageShippingAddress = localStorage.getItem("shippingAddress")
+  ? JSON.parse(localStorage.getItem("shippingAddress"))
   : {};
 
-const localStorageUserInfo = localStorage.getItem('userInfo')
-  ? JSON.parse(localStorage.getItem('userInfo'))
+const localStorageUserInfo = localStorage.getItem("userInfo")
+  ? JSON.parse(localStorage.getItem("userInfo"))
   : null;
 
 const preloadedState = {
@@ -56,6 +57,7 @@ const store = configureStore({
     productCreate: productCreateReducer,
     productUpdate: productUpdateReducer,
     productReviewCreate: productReviewCreateReducer,
+    productTopRated: productTopRatedReducer,
     cart: cartReducer,
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
